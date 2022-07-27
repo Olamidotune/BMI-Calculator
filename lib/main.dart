@@ -1,4 +1,5 @@
-import 'package:bmi_calculator/widgets/colors.dart';
+
+import 'package:bmi_calculator/widgets/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -26,21 +27,21 @@ class MyApp extends StatelessWidget {
               headline1: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
-                color: ACTIVE_TAB_COLOR,
+                color: activeTabColor,
               ),
               headline2: TextStyle(
                 fontSize: 18.sp,
-                color: ACTIVE_TAB_COLOR,
+                color: activeTabColor,
                 fontWeight: FontWeight.bold,
               ),
               bodyText2: TextStyle(
                 fontSize: 10.3.sp,
-                color: TEXT_COLOR,
+                color: textColor,
               ),
               bodyText1: TextStyle(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.bold,
-                color: TEXT_COLOR,
+                color: textColor,
               ),
             ),
             appBarTheme: AppBarTheme(

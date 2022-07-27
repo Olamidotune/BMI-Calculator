@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/widgets/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -15,14 +16,15 @@ class IconItems extends StatelessWidget {
         Icon(
           genderIcon,
           color: Colors.white,
-          size: 65,
+          size: 55
+          ,
         ),
         SizedBox(
           height: 5.h,
         ),
         Text(
           gender,
-          style: const TextStyle(fontSize: 15),
+          style: labelTextStyle,
         ),
       ],
     );

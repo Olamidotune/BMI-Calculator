@@ -1,9 +1,12 @@
+import 'package:bmi_calculator/widgets/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:sizer/sizer.dart';
-import '../widgets/colors.dart';
 import '../widgets/itemitems.dart';
 import '../widgets/reusable_card.dart';
+
+enum Gender { male, female }
 
 class InputPage extends StatefulWidget {
   const InputPage({Key? key}) : super(key: key);
@@ -13,24 +16,8 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Color maleCardColor = INACTIVE_TAB_COLOR;
-  Color femaleCardColor = INACTIVE_TAB_COLOR;
-
-  void updateColor(int sex) {
-    if (sex == 1) {
-      if (maleCardColor == INACTIVE_TAB_COLOR) {
-        maleCardColor = ACTIVE_TAB_COLOR;
-        femaleCardColor= INACTIVE_TAB_COLOR;
-      } else {
-        maleCardColor = INACTIVE_TAB_COLOR;
-      }
-    }if(sex ==2){
-      if (femaleCardColor== INACTIVE_TAB_COLOR){
-        femaleCardColor= ACTIVE_TAB_COLOR;
-        maleCardColor= INACTIVE_TAB_COLOR;
-      }else{femaleCardColor=INACTIVE_TAB_COLOR;}
-    }
-  }
+  Gender? selectedGender;
+  int height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +35,7 @@ class _InputPageState extends State<InputPage> {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Row(
                     children: [
@@ -55,13 +43,17 @@ class _InputPageState extends State<InputPage> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              updateColor(1);
+                              selectedGender = Gender.male;
                             });
                           },
                           child: ReusableCard(
-                            cardColor: maleCardColor,
+                            onPressed: () {},
+                            cardColor: selectedGender == Gender.male
+                                ? activeTabColor
+                                : inactiveTabColor,
                             cardItems: const IconItems(
                                 genderIcon: FontAwesomeIcons.mars,
+                                
                                 gender: 'MALE'),
                           ),
                         ),
@@ -73,11 +65,14 @@ class _InputPageState extends State<InputPage> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              updateColor(2);
+                              selectedGender = Gender.female;
                             });
                           },
                           child: ReusableCard(
-                            cardColor: femaleCardColor,
+                            onPressed: () {},
+                            cardColor: selectedGender == Gender.female
+                                ? activeTabColor
+                                : inactiveTabColor,
                             cardItems: const IconItems(
                               gender: 'FEMALE',
                               genderIcon: FontAwesomeIcons.venus,
@@ -90,23 +85,70 @@ class _InputPageState extends State<InputPage> {
                   SizedBox(
                     height: 5.h,
                   ),
-                  const SizedBox(
-                      width: double.infinity,
-                      child: ReusableCard(cardColor: ACTIVE_TAB_COLOR)),
+                  ReusableCard(
+                    onPressed: () {},
+                    cardColor: activeTabColor,
+                    cardItems: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'HEIGHT',
+                          style: labelTextStyle,
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              height.toString(),
+                              style: largeLabelTextStyle,
+                            ),
+                            SizedBox(
+                              width: 0.1.w,
+                            ),
+                            const Text(
+                              'cm',
+                              style: labelTextStyle,
+                            )
+                          ],
+                        ),
+                        Slider(
+                            value: height.toDouble(),
+                            max: 215,
+                            min: 131,
+                            activeColor: Colors.red,
+                            inactiveColor: Colors.red.shade300,
+                            onChanged: (double newValue) {
+                              setState(() {
+                                height = newValue.round();
+                              });
+                            })
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 5.h,
                   ),
                   Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Expanded(
-                        child: ReusableCard(cardColor: ACTIVE_TAB_COLOR),
+                      Expanded(
+                        child: ReusableCard(
+                          onPressed: () {},
+                          cardColor: activeTabColor,
+                        ),
                       ),
                       SizedBox(
                         width: 5.w,
                       ),
-                      const Expanded(
-                        child: ReusableCard(cardColor: ACTIVE_TAB_COLOR),
+                      Expanded(
+                        child: ReusableCard(
+                          onPressed: () {},
+                          cardColor: activeTabColor,
+                        ),
                       ),
                     ],
                   ),
