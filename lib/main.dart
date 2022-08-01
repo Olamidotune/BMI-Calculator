@@ -1,4 +1,4 @@
-
+import 'package:bmi_calculator/Screens/result_page.dart';
 import 'package:bmi_calculator/widgets/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -53,6 +53,14 @@ class MyApp extends StatelessWidget {
             ),
             scaffoldBackgroundColor: Colors.grey),
         home: const InputPage(),
+        initialRoute: 'InputPage',
+        routes: {
+          'InputPage': (context) => const InputPage(),
+          'ResultPage': (context) => const ResultPage(
+                bmiResult: '',
+                resultText: '',
+              ),
+        },
       ),
     );
   }
